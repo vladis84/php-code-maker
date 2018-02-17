@@ -1,8 +1,8 @@
 <?php
 
-namespace ClassGenTest\PhpClass;
+namespace PhpCodeMakerTest\PhpClass;
 
-use ClassGen\PhpClass\Method;
+use PhpCodeMaker\PhpClass\Method;
 
 /**
  *

@@ -1,8 +1,8 @@
 <?php
 
-namespace ClassGen;
+namespace PhpCodeMaker;
 
-use ClassGen\PhpClass\Property;
+use PhpCodeMaker\PhpClass\Property;
 
 /**
  *

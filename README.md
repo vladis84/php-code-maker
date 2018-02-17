@@ -1,1 +1,1 @@
-# phpClassGen
+# php-code-maker

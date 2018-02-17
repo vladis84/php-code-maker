@@ -1,6 +1,6 @@
 <?php
 
-namespace ClassGen\PhpClass;
+namespace PhpCodeMaker\PhpClass;
 
 /**
  *

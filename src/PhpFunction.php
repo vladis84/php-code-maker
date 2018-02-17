@@ -1,8 +1,8 @@
 <?php
 
-namespace ClassGen;
+namespace PhpCodeMaker;
 
-use ClassGen\PhpFunction\Param;
+use PhpCodeMaker\PhpFunction\Param;
 
 /**
  *

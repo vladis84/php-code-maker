@@ -1,11 +1,11 @@
 <?php
 
-namespace ClassGen\PhpFunction;
+namespace PhpCodeMaker\PhpFunction;
 
 /**
  *
  */
-class Param extends \ClassGen\Element
+class Param extends \PhpCodeMaker\Element
 {
     /**
      *

@@ -1,6 +1,6 @@
 <?php
 
-namespace ClassGen;
+namespace PhpCodeMaker;
 
 abstract class Element
 {

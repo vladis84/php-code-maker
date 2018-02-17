@@ -1,11 +1,11 @@
 <?php
 
-namespace ClassGen\PhpClass;
+namespace PhpCodeMaker\PhpClass;
 
 /**
  *
  */
-class Property extends \ClassGen\Element
+class Property extends \PhpCodeMaker\Element
 {
     use VisiblityTrait;
 

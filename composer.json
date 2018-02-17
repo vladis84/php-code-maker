@@ -14,8 +14,8 @@
     },
     "autoload": {
         "psr-4": {
-            "ClassGen\\": "src/",
-            "ClassGenTest\\": "tests/"
+            "PhpCodeMaker\\": "src/",
+            "PhpCodeMakerTest\\": "tests/"
         }
     }
 }

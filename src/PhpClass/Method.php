@@ -1,11 +1,11 @@
 <?php
 
-namespace ClassGen\PhpClass;
+namespace PhpCodeMaker\PhpClass;
 
 /**
  *
  */
-class Method extends \ClassGen\PhpFunction
+class Method extends \PhpCodeMaker\PhpFunction
 {
     use VisiblityTrait;
 

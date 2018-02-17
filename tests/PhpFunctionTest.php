@@ -1,8 +1,8 @@
 <?php
 
-namespace ClassGenTest;
+namespace PhpCodeMakerTest;
 
-use ClassGen\PhpFunction;
+use PhpCodeMaker\PhpFunction;
 
 
 class PhpFunctionTest extends \PHPUnit\Framework\TestCase
