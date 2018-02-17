@@ -11,7 +11,14 @@ class Param extends \ClassGen\Element
      *
      * @var string
      */
-    protected $type;
+    public $type;
+
+    public function setType($type)
+    {
+        $this->type = $type;
+        
+        return $this;
+    }
 
     public function render()
     {
