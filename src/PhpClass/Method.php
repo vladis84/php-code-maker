@@ -13,6 +13,10 @@ class Method extends \PhpCodeMaker\PhpFunction
     {
         $function = parent::render();
 
-        return str_replace("function {$this->name}", "{$this->visiblity} function {$this->name}", $function);
+        return str_replace(
+            "function {$this->name}",
+            "    {$this->visiblity} function {$this->name}",
+            $function
+        );
     }
 }

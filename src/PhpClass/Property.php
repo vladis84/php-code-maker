@@ -12,10 +12,10 @@ class Property extends \PhpCodeMaker\Element
     public function render()
     {
         return <<<PHP
-/**
- * {$this->description}
-*/
-{$this->visiblity} \${$this->name};
+    /**
+     * {$this->description}
+    */
+    {$this->visiblity} \${$this->name};\n
 PHP;
     }
 }

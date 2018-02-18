@@ -111,9 +111,9 @@ class PhpClass extends Element
 */
 class {$this->name}
 {
-    {$properties}
+{$properties}
     
-    {$methods}
+{$methods}
 }
 PHP;
     }
