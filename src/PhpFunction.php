@@ -5,7 +5,7 @@ namespace PhpCodeMaker;
 use PhpCodeMaker\PhpFunction\Param;
 
 /**
- *
+ * Функция
  */
 class PhpFunction extends Element
 {
@@ -20,13 +20,6 @@ class PhpFunction extends Element
      * @var string
      */
     private $code;
-
-    public function addParam(Param $param)
-    {
-        $this->params[] = $param;
-
-        return $this;
-    }
 
     /**
      * Создает параметр функции
@@ -43,9 +36,16 @@ class PhpFunction extends Element
             ->setType($type)
             ->setDescription($description);
 
-        $this->addParam($param);
+        $this->params[] = $param;
 
-        return $param;
+        return $this;
+    }
+
+    public function setCode($code)
+    {
+        $this->code = $code;
+        
+        return $this;
     }
 
     public function render()

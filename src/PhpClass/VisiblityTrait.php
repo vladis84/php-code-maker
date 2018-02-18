@@ -16,15 +16,21 @@ trait VisiblityTrait
     public function setVisiblityPublic()
     {
         $this->visiblity = 'public';
+        
+        return $this;
     }
 
     public function setVisiblityProtected()
     {
         $this->visiblity = 'protected';
+
+        return $this;
     }
 
     public function setVisiblityPrivate()
     {
         $this->visiblity = 'private';
+
+        return $this;
     }
 }

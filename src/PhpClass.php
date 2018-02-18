@@ -2,22 +2,51 @@
 
 namespace PhpCodeMaker;
 
-use PhpCodeMaker\PhpClass\Property;
+use PhpCodeMaker\PhpClass\Method;
+use PhpCodeMaker\PhpUse;
 
 /**
- *
+ * класс
  */
 class PhpClass extends Element
 {
     /**
+     * @var PhpNamespace 
+     */
+    private $namespace;
+
+    /**
+     * Список используемых классов/трайтов
+     * @var PhpUse[]
+     */
+    private $uses = [];
+
+    /**
      * Список свойств
-     * @var Property[]
+     * @var PhpClass\Property[]
      */
     private $properties = [];
 
-    public function addProperty(Property $property)
+    /**
+     * Список методов
+     * @var Method[]
+     */
+    private $methods = [];
+
+    public function setNamespace($namespace)
     {
-        $this->properties[] = $property;
+        $phpNamespase = new PhpNamespace();
+        $phpNamespase->setName($namespace);
+        $this->namespace = $phpNamespase;
+
+        return $this;
+    }
+
+    public function addUse($use)
+    {
+        $phpUse = new PhpUse();
+        $phpUse->setName($use);
+        $this->uses[] = $phpUse;
 
         return $this;
     }
@@ -34,6 +63,8 @@ class PhpClass extends Element
         $property = $this->makeProperty($name, $description);
 
         $property->setVisiblityProtected();
+
+        return $this;
     }
 
     public function makePrivateProperty($name, $description = null)
@@ -41,7 +72,15 @@ class PhpClass extends Element
         $property = $this->makeProperty($name, $description);
 
         $property->setVisiblityPrivate();
+        
+        return $this;
+    }
 
+    public function addMethod(Method $method)
+    {
+        $this->methods[] = $method;
+
+        return $this;
     }
 
     private function makeProperty($name, $description = null)
@@ -52,22 +91,29 @@ class PhpClass extends Element
             ->setName($name)
             ->setDescription($description);
 
-        $this->addProperty($property);
+        $this->properties[] = $property;
 
         return $property;
     }
 
     public function render()
     {
+        $uses       = join("\n", $this->uses);
         $properties = join("\n", $this->properties);
+        $methods    = join("\n", $this->methods);
 
         return <<<PHP
+{$this->namespace}
+{$uses}
+
 /**
  * {$this->description}
 */
 class {$this->name}
 {
     {$properties}
+    
+    {$methods}
 }
 PHP;
     }

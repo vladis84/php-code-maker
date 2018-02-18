@@ -31,4 +31,16 @@ class PhpFunctionTest extends \PHPUnit\Framework\TestCase
         $this->assertContains('User $user', $string);
         $this->assertContains('* @param User $user', $string);
     }
+
+    public function testRender_setCodeFunction_returnString()
+    {
+        $phpFunction = new PhpFunction;
+        $phpFunction
+            ->setName('test')
+            ->setCode('$a = 2 * 2;');
+
+        $string = $phpFunction->render();
+
+        $this->assertContains('$a = 2 * 2;', $string);
+    }
 }
