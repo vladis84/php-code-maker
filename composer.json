@@ -17,5 +17,6 @@
             "PhpCodeMaker\\": "src/",
             "PhpCodeMakerTest\\": "tests/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
