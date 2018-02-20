@@ -1,5 +1,7 @@
 {
     "name": "php-class-generate",
+    "type": "library",
+    "version": "0.0.1",
     "authors": [
         {
             "name": "vladis",
@@ -14,9 +16,12 @@
     },
     "autoload": {
         "psr-4": {
-            "PhpCodeMaker\\": "src/",
-            "PhpCodeMakerTest\\": "tests/"
+            "PhpCodeMaker\\": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "autoload-dev": {
+        "psr-4": {
+            "PhpCodeMakerTest\\": "tests/"
+        }
+    }
 }
