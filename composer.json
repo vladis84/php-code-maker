@@ -1,7 +1,5 @@
 {
     "name": "php-class-generate",
-    "type": "library",
-    "version": "0.0.1",
     "authors": [
         {
             "name": "vladis",
