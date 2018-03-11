@@ -76,4 +76,26 @@ PHP;
 
         $this->assertContains('private function getName', $string);
     }
+
+    public function testRender_hasInheritsClass_returnString()
+    {
+        $phpClass = new PhpClass;
+        $phpClass->setName('User');
+        $phpClass->setInherits('Human');
+
+        $string = $phpClass->render();
+
+        $this->assertContains(' extends Human', $string);
+    }
+    public function testRender_hasImplementsClasses_returnString()
+    {
+        $phpClass = new PhpClass;
+        $phpClass->setName('User');
+        $phpClass->setInherits('Human');
+        $phpClass->setImplements(['Walking', 'Speak']);
+
+        $string = $phpClass->render();
+
+        $this->assertContains(' implements Walking, Speak', $string);
+    }
 }

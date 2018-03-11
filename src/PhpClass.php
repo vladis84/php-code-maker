@@ -3,7 +3,6 @@
 namespace PhpCodeMaker;
 
 use PhpCodeMaker\PhpClass\Method;
-use PhpCodeMaker\PhpUse;
 
 /**
  * класс
@@ -33,11 +32,23 @@ class PhpClass extends Element
      */
     private $methods = [];
 
+    /**
+     * Наследуемый класс
+     * @var string
+     */
+    private $inherits;
+
+    /**
+     * Реализуемые интерфейсы
+     * @var string[]
+     */
+    private $implements;
+
     public function setNamespace($namespace)
     {
-        $phpNamespase = new PhpNamespace();
-        $phpNamespase->setName($namespace);
-        $this->namespace = $phpNamespase;
+        $papNamespace = new PhpNamespace();
+        $papNamespace->setName($namespace);
+        $this->namespace = $papNamespace;
 
         return $this;
     }
@@ -101,6 +112,13 @@ class PhpClass extends Element
         $uses       = join("\n", $this->uses);
         $properties = join("\n", $this->properties);
         $methods    = join("\n", $this->methods);
+        $extends    = $this->inherits ? " extends $this->inherits" : "";
+        $implements = "";
+
+        if ($this->implements){
+            $implements = " implements ".join(", ", $this->implements);
+        }
+
 
         return <<<PHP
 {$this->namespace}
@@ -109,12 +127,30 @@ class PhpClass extends Element
 /**
  * {$this->description}
 */
-class {$this->name}
+class {$this->name}{$extends}{$implements}
 {
 {$properties}
     
 {$methods}
 }
 PHP;
+    }
+
+    /**
+     * Установить наследуемый класс
+     * @param $inherits
+     */
+    public function setInherits($inherits)
+    {
+        $this->inherits = $inherits;
+    }
+
+    /**
+     * Установить реализуемые интерфейсы
+     * @param $implementsInterfaces
+     */
+    public function setImplements($implementsInterfaces)
+    {
+        $this->implements = $implementsInterfaces;
     }
 }
