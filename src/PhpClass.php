@@ -121,6 +121,7 @@ class PhpClass extends Element
 
 
         return <<<PHP
+<?php
 {$this->namespace}
 {$uses}
 
