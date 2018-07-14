@@ -69,6 +69,19 @@ class PhpClass extends Element
         $property->setVisiblityPublic();
     }
 
+    private function makeProperty($name, $description = null)
+    {
+        $property = new PhpClass\Property();
+
+        $property
+            ->setName($name)
+            ->setDescription($description);
+
+        $this->properties[] = $property;
+
+        return $property;
+    }
+
     public function makeProtectedProperty($name, $description = null)
     {
         $property = $this->makeProperty($name, $description);
@@ -94,25 +107,12 @@ class PhpClass extends Element
         return $this;
     }
 
-    private function makeProperty($name, $description = null)
-    {
-        $property = new PhpClass\Property();
-
-        $property
-            ->setName($name)
-            ->setDescription($description);
-
-        $this->properties[] = $property;
-
-        return $property;
-    }
-
     public function render()
     {
-        $uses       = join("\n", $this->uses);
+        $uses = join("\n", $this->uses);
         $properties = join("\n", $this->properties);
-        $methods    = join("\n", $this->methods);
-        $extends    = $this->inherits ? " extends $this->inherits" : "";
+        $methods = join("\n", $this->methods);
+        $extends = $this->inherits ? " extends $this->inherits" : "";
         $implements = "";
 
         if ($this->implements) {
@@ -138,19 +138,26 @@ PHP;
 
     /**
      * Установить наследуемый класс
+     *
      * @param $inherits
+     *
+     * @return $this
      */
-    public function setInherits($inherits)
+    public function setInherits($inherits): self
     {
         $this->inherits = $inherits;
+
+        return $this;
     }
 
     /**
      * Установить реализуемые интерфейсы
      * @param $implementsInterfaces
      */
-    public function setImplements($implementsInterfaces)
+    public function setImplements($implementsInterfaces): self
     {
         $this->implements = $implementsInterfaces;
+
+        return $this;
     }
 }
