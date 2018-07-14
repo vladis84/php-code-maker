@@ -10,7 +10,7 @@ use PhpCodeMaker\PhpClass\Method;
 class PhpClass extends Element
 {
     /**
-     * @var PhpNamespace 
+     * @var PhpNamespace
      */
     private $namespace;
 
@@ -83,7 +83,7 @@ class PhpClass extends Element
         $property = $this->makeProperty($name, $description);
 
         $property->setVisiblityPrivate();
-        
+
         return $this;
     }
 
@@ -115,10 +115,9 @@ class PhpClass extends Element
         $extends    = $this->inherits ? " extends $this->inherits" : "";
         $implements = "";
 
-        if ($this->implements){
-            $implements = " implements ".join(", ", $this->implements);
+        if ($this->implements) {
+            $implements = " implements " . join(", ", $this->implements);
         }
-
 
         return <<<PHP
 <?php

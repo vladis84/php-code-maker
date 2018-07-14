@@ -16,13 +16,6 @@ abstract class Element
      */
     protected $description;
 
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
     public function setDescription($description)
     {
         $this->description = $description;
@@ -30,10 +23,25 @@ abstract class Element
         return $this;
     }
 
-    public abstract function render();
-
     public function __toString()
     {
         return $this->render();
+    }
+
+    public abstract function render();
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
     }
 }
