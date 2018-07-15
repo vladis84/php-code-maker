@@ -16,11 +16,11 @@ class Param extends \PhpCodeMaker\Element
     public function setType($type)
     {
         $this->type = $type;
-        
+
         return $this;
     }
 
-    public function render()
+    public function render(): string
     {
         return "{$this->type} \${$this->name}";
     }

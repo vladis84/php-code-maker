@@ -2,16 +2,14 @@
 
 namespace PhpCodeMaker;
 
-abstract class Element
+abstract class Element implements ElementInterface
 {
     /**
-     * Название класса
      * @var string
      */
     protected $name;
 
     /**
-     * Описание класса
      * @var string
      */
     protected $description;
@@ -27,8 +25,6 @@ abstract class Element
     {
         return $this->render();
     }
-
-    public abstract function render();
 
     /**
      * @return string

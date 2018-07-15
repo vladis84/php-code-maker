@@ -3,6 +3,7 @@
 namespace PhpCodeMaker;
 
 use PhpCodeMaker\PhpClass\Method;
+use PhpCodeMaker\PhpClass\Property;
 
 /**
  * класс
@@ -44,6 +45,23 @@ class PhpClass extends Element
      */
     private $implements;
 
+    /**
+     * @var PhpDocs
+     */
+    private $phpDocs;
+
+    public function __construct()
+    {
+        $this->phpDocs = new PhpDocs();
+    }
+
+    public function addPhpDoc(string $name, string $description = null)
+    {
+        $this->phpDocs->makePhpDoc($name, $description);
+
+        return $this;
+    }
+
     public function setNamespace($namespace)
     {
         $papNamespace = new PhpNamespace();
@@ -62,14 +80,28 @@ class PhpClass extends Element
         return $this;
     }
 
-    public function makePublicProperty($name, $description = null)
+    /**
+     * @param Property $property
+     *
+     * @return $this
+     */
+    public function addProperty(Property $property): self
+    {
+        $this->properties[] = $property;
+
+        return $this;
+    }
+
+    public function makePublicProperty($name, $description = null): self
     {
         $property = $this->makeProperty($name, $description);
 
         $property->setVisiblityPublic();
+
+        return $this;
     }
 
-    private function makeProperty($name, $description = null)
+    public function makeProperty($name, $description = null)
     {
         $property = new PhpClass\Property();
 
@@ -100,33 +132,39 @@ class PhpClass extends Element
         return $this;
     }
 
-    public function addMethod(Method $method)
+    /**
+     * @param Method $method
+     *
+     * @return $this
+     */
+    public function addMethod(Method $method): self
     {
         $this->methods[] = $method;
 
         return $this;
     }
 
-    public function render()
+    public function render(): string
     {
-        $uses = join("\n", $this->uses);
+        $uses       = join("\n", $this->uses);
         $properties = join("\n", $this->properties);
-        $methods = join("\n", $this->methods);
-        $extends = $this->inherits ? " extends $this->inherits" : "";
-        $implements = "";
+        $methods    = join("\n", $this->methods);
+        $extends    = $this->inherits ? " extends $this->inherits" : '';
+        $implements = '';
 
         if ($this->implements) {
-            $implements = " implements " . join(", ", $this->implements);
+            $implements = " implements " . join(', ', $this->implements);
         }
+
+        $this->phpDocs->setDescription($this->description);
+        $phpDocs = $this->phpDocs->render();
 
         return <<<PHP
 <?php
 {$this->namespace}
 {$uses}
 
-/**
- * {$this->description}
-*/
+{$phpDocs}
 class {$this->name}{$extends}{$implements}
 {
 {$properties}
@@ -152,7 +190,8 @@ PHP;
 
     /**
      * Установить реализуемые интерфейсы
-     * @param $implementsInterfaces
+     *
+     * @param $this
      */
     public function setImplements($implementsInterfaces): self
     {

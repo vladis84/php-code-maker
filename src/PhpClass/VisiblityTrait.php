@@ -16,7 +16,7 @@ trait VisiblityTrait
     public function setVisiblityPublic()
     {
         $this->visiblity = 'public';
-        
+
         return $this;
     }
 

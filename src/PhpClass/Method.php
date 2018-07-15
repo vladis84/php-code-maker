@@ -9,7 +9,7 @@ class Method extends \PhpCodeMaker\PhpFunction
 {
     use VisiblityTrait;
 
-    public function render()
+    public function render(): string
     {
         $function = parent::render();
 
