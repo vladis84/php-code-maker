@@ -113,6 +113,18 @@ class PhpClass extends Element
     }
 
     /**
+     * @param Property $property
+     *
+     * @return $this
+     */
+    public function addProperty( Property $property): self
+    {
+        $this->properties[] = $property;
+
+        return $this;
+    }
+
+    /**
      * @param $name
      * @param null $description
      *

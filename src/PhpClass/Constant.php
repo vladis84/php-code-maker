@@ -23,6 +23,18 @@ class Constant extends Element
     }
 
     /**
+     * @param null|string $description
+     *
+     * @return $this
+     */
+    public function setDescription(?string $description): self
+    {
+        $this->phpDocs->setDescription($description);
+
+        return $this;
+    }
+
+    /**
      * @param int|string $value
      *
      * @return $this
@@ -36,7 +48,6 @@ class Constant extends Element
 
     public function render(): string
     {
-        $this->phpDocs->setDescription($this->description);
         $phpDocs = $this->phpDocs->render();
         $phpDocs = str_replace("\n", "\n    ", $phpDocs);
         $value   = is_string($this->value) ? "'{$this->value}'" : $this->value;
