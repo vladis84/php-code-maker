@@ -56,8 +56,7 @@ class PhpDocs implements ElementInterface
         return <<<PHP
 /**
  * {$this->description}
-{$phpDocs}
-*/
+{$phpDocs}*/
 PHP;
     }
 }

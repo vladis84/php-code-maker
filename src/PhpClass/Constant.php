@@ -5,24 +5,31 @@ namespace PhpCodeMaker\PhpClass;
 use PhpCodeMaker\Element;
 use PhpCodeMaker\PhpDocs;
 
-class Property extends Element
+class Constant extends Element
 {
-    use VisiblityTrait;
-
     /**
      * @var PhpDocs
      */
     private $phpDocs;
 
+    /**
+     * @var string|int
+     */
+    private $value;
+
     public function __construct()
     {
-        $this->setVisiblityPublic();
         $this->phpDocs = new PhpDocs();
     }
 
-    public function addPhpDoc(string $name, string $description = null)
+    /**
+     * @param int|string $value
+     *
+     * @return $this
+     */
+    public function setValue($value): self
     {
-        $this->phpDocs->makePhpDoc($name, $description);
+        $this->value = $value;
 
         return $this;
     }
@@ -32,10 +39,11 @@ class Property extends Element
         $this->phpDocs->setDescription($this->description);
         $phpDocs = $this->phpDocs->render();
         $phpDocs = str_replace("\n", "\n    ", $phpDocs);
+        $value   = is_string($this->value) ? "'{$this->value}'" : $this->value;
 
         return <<<PHP
     {$phpDocs}
-    {$this->visiblity} \${$this->name};\n
+    constant {$this->name} = {$value};\n
 PHP;
     }
 }

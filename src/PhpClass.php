@@ -2,6 +2,7 @@
 
 namespace PhpCodeMaker;
 
+use PhpCodeMaker\PhpClass\Constant;
 use PhpCodeMaker\PhpClass\Method;
 use PhpCodeMaker\PhpClass\Property;
 
@@ -20,6 +21,12 @@ class PhpClass extends Element
      * @var PhpUse[]
      */
     private $uses = [];
+
+    /**
+     * Список констант
+     * @var Constant[]
+     */
+    private $constants = [];
 
     /**
      * Список свойств
@@ -76,6 +83,13 @@ class PhpClass extends Element
         $phpUse = new PhpUse();
         $phpUse->setName($use);
         $this->uses[] = $phpUse;
+
+        return $this;
+    }
+
+    public function addConstant(Constant $constant)
+    {
+        $this->constants[] = $constant;
 
         return $this;
     }
@@ -147,6 +161,7 @@ class PhpClass extends Element
     public function render(): string
     {
         $uses       = join("\n", $this->uses);
+        $constants  = join("\n", $this->constants);
         $properties = join("\n", $this->properties);
         $methods    = join("\n", $this->methods);
         $extends    = $this->inherits ? " extends $this->inherits" : '';
@@ -161,12 +176,16 @@ class PhpClass extends Element
 
         return <<<PHP
 <?php
+
 {$this->namespace}
+
 {$uses}
 
 {$phpDocs}
 class {$this->name}{$extends}{$implements}
 {
+{$constants}
+
 {$properties}
     
 {$methods}

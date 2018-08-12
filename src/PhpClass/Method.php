@@ -11,12 +11,14 @@ class Method extends \PhpCodeMaker\PhpFunction
 
     public function render(): string
     {
-        $function = parent::render();
-
-        return str_replace(
+        $function =  str_replace(
             "function {$this->name}",
             "    {$this->visiblity} function {$this->name}",
-            $function
+            parent::render()
         );
+
+        $function = str_replace("\n", "\n    ", $function);
+
+        return $function;
     }
 }
