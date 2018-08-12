@@ -51,7 +51,7 @@ class PhpClassTest extends \PHPUnit\Framework\TestCase
     {
         $phpClass = new PhpClass;
         $phpClass->setName('User');
-        $phpClass->makePublicProperty('lastName');
+        $phpClass->makeProperty('lastName');
 
         $string = $phpClass->render();
 

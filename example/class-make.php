@@ -21,4 +21,4 @@ $phpClass
     ->makePrivateProperty('middleName', 'Отчество')
     ->addMethod($method);
 
-echo "<?php" . $phpClass;
+echo $phpClass;

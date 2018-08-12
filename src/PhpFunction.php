@@ -9,7 +9,6 @@ use PhpCodeMaker\PhpFunction\Param;
  */
 class PhpFunction extends Element
 {
-
     /**
      * Входной параметр функции
      * @var PhpFunction\Param[]
@@ -33,26 +32,36 @@ class PhpFunction extends Element
     }
 
     /**
-     * Создает параметр функции
-     *
-     * @param $name
-     * @param $type
-     * @param null $description
+     * @param null|string $description
      *
      * @return $this
      */
-    public function makeParam($name, $type, $description = null): self
+    public function setDescription(?string $description): self
+    {
+        $this->phpDocs->setDescription($description);
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param string $type
+     * @param string|null $description
+     *
+     * @return $this
+     */
+    public function makeParam(string $name, string $type, string $description = null): self
     {
         $param = new Param;
 
         $param
             ->setName($name)
             ->setType($type)
-            ->setDescription($description);
+        ;
 
         $this->params[] = $param;
 
-        $phpDocDescription = sprintf('%s $%s %s', $param->type, $param->name, $param->description);
+        $phpDocDescription = sprintf('%s $%s %s', $param->type, $param->name, $description);
         $this->phpDocs->makePhpDoc('@param', $phpDocDescription);
 
         return $this;
@@ -67,10 +76,8 @@ class PhpFunction extends Element
 
     public function render(): string
     {
-        $params = join(', ', $this->params);
-        $this->phpDocs->setDescription($this->description);
+        $params  = join(', ', $this->params);
         $phpDocs = $this->phpDocs->render();
-
 
         return <<<PHP
 {$phpDocs}

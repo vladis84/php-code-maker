@@ -62,7 +62,25 @@ class PhpClass extends Element
         $this->phpDocs = new PhpDocs();
     }
 
-    public function addPhpDoc(string $name, string $description = null)
+    /**
+     * @param null|string $description
+     *
+     * @return $this
+     */
+    public function setDescription(?string $description): self
+    {
+        $this->phpDocs->setDescription($description);
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param string|null $description
+     *
+     * @return $this
+     */
+    public function addPhpDoc(string $name, string $description = null): self
     {
         $this->phpDocs->makePhpDoc($name, $description);
 
@@ -95,27 +113,12 @@ class PhpClass extends Element
     }
 
     /**
-     * @param Property $property
+     * @param $name
+     * @param null $description
      *
-     * @return $this
+     * @return Property
      */
-    public function addProperty(Property $property): self
-    {
-        $this->properties[] = $property;
-
-        return $this;
-    }
-
-    public function makePublicProperty($name, $description = null): self
-    {
-        $property = $this->makeProperty($name, $description);
-
-        $property->setVisiblityPublic();
-
-        return $this;
-    }
-
-    public function makeProperty($name, $description = null)
+    public function makeProperty(string $name, string $description = null): Property
     {
         $property = new PhpClass\Property();
 
@@ -126,24 +129,6 @@ class PhpClass extends Element
         $this->properties[] = $property;
 
         return $property;
-    }
-
-    public function makeProtectedProperty($name, $description = null)
-    {
-        $property = $this->makeProperty($name, $description);
-
-        $property->setVisiblityProtected();
-
-        return $this;
-    }
-
-    public function makePrivateProperty($name, $description = null)
-    {
-        $property = $this->makeProperty($name, $description);
-
-        $property->setVisiblityPrivate();
-
-        return $this;
     }
 
     /**
@@ -171,7 +156,6 @@ class PhpClass extends Element
             $implements = " implements " . join(', ', $this->implements);
         }
 
-        $this->phpDocs->setDescription($this->description);
         $phpDocs = $this->phpDocs->render();
 
         return <<<PHP

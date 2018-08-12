@@ -9,18 +9,6 @@ abstract class Element implements ElementInterface
      */
     protected $name;
 
-    /**
-     * @var string
-     */
-    protected $description;
-
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
     public function __toString()
     {
         return $this->render();
@@ -29,12 +17,17 @@ abstract class Element implements ElementInterface
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName($name)
+    /**
+     * @param $name
+     *
+     * @return $this
+     */
+    public function setName($name): self
     {
         $this->name = $name;
 

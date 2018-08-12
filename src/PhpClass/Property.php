@@ -20,6 +20,18 @@ class Property extends Element
         $this->phpDocs = new PhpDocs();
     }
 
+    /**
+     * @param null|string $description
+     *
+     * @return $this
+     */
+    public function setDescription(?string $description): self
+    {
+        $this->phpDocs->setDescription($description);
+
+        return $this;
+    }
+
     public function addPhpDoc(string $name, string $description = null)
     {
         $this->phpDocs->makePhpDoc($name, $description);
@@ -29,7 +41,6 @@ class Property extends Element
 
     public function render(): string
     {
-        $this->phpDocs->setDescription($this->description);
         $phpDocs = $this->phpDocs->render();
         $phpDocs = str_replace("\n", "\n    ", $phpDocs);
 
