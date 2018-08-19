@@ -37,7 +37,8 @@ class PhpDocs implements ElementInterface
         $phpDoc = new PhpDoc();
         $phpDoc
             ->setName($name)
-            ->setDescription($description);
+            ->setDescription($description)
+        ;
 
         $this->phpDocs[] = $phpDoc;
 
@@ -53,9 +54,18 @@ class PhpDocs implements ElementInterface
         foreach ($this->phpDocs as $phpDoc) {
             $phpDocs .= $phpDoc->render();
         }
+
+        $description = '';
+        if ($this->description) {
+            $description =  "\n * {$this->description}";
+        }
+
+        if (empty($description) && empty($phpDocs)) {
+            return '';
+        }
+
         return <<<PHP
-/**
- * {$this->description}
+/**{$description}
 {$phpDocs}*/
 PHP;
     }

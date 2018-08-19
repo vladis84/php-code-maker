@@ -117,7 +117,7 @@ class PhpClass extends Element
      *
      * @return $this
      */
-    public function addProperty( Property $property): self
+    public function addProperty(Property $property): self
     {
         $this->properties[] = $property;
 
@@ -136,7 +136,8 @@ class PhpClass extends Element
 
         $property
             ->setName($name)
-            ->setDescription($description);
+            ->setDescription($description)
+        ;
 
         $this->properties[] = $property;
 
@@ -157,36 +158,51 @@ class PhpClass extends Element
 
     public function render(): string
     {
-        $uses       = join("\n", $this->uses);
-        $constants  = join("\n", $this->constants);
-        $properties = join("\n", $this->properties);
-        $methods    = join("\n", $this->methods);
-        $extends    = $this->inherits ? " extends $this->inherits" : '';
-        $implements = '';
+        $uses = join("\n", $this->uses);
+        if ($uses) {
+            $uses = "\n" . $uses . "\n";
+        }
 
+        $constants = join("\n", $this->constants);
+        if ($constants) {
+            $constants = "\n" . $constants;
+        }
+
+        $properties = join("\n", $this->properties);
+        if ($properties) {
+            $properties = "\n" . $properties;
+        }
+
+        $methods = join("\n", $this->methods);
+        if ($methods) {
+            $methods = "\n" . $methods;
+        }
+
+        $extends = $this->inherits ? " extends $this->inherits" : '';
+
+        $implements = '';
         if ($this->implements) {
             $implements = " implements " . join(', ', $this->implements);
         }
 
         $phpDocs = $this->phpDocs->render();
+        if ($phpDocs) {
+            $phpDocs = "\n" . $phpDocs;
+        }
 
-        return <<<PHP
+        $phpCode = <<<PHP
 <?php
 
 {$this->namespace}
-
-{$uses}
-
-{$phpDocs}
+{$uses}{$phpDocs}
 class {$this->name}{$extends}{$implements}
-{
-{$constants}
-
-{$properties}
-    
-{$methods}
+{{$constants}{$properties}{$methods}
 }
+
+
 PHP;
+
+        return $phpCode;
     }
 
     /**

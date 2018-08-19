@@ -23,6 +23,10 @@ class PhpDoc extends Element
      */
     public function render(): string
     {
+        if (!$this->name) {
+            return '';
+        }
+
         return " * {$this->name} {$this->description}\n";
     }
 }

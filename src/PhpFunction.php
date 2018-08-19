@@ -78,10 +78,12 @@ class PhpFunction extends Element
     {
         $params  = join(', ', $this->params);
         $phpDocs = $this->phpDocs->render();
+        if ($phpDocs) {
+            $phpDocs .= "\n";
+        }
 
         return <<<PHP
-{$phpDocs}
-function {$this->name} ({$params})
+{$phpDocs}function {$this->name}({$params})
 {
     {$this->code}
 }
