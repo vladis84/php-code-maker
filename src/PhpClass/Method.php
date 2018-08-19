@@ -16,7 +16,7 @@ class Method extends \PhpCodeMaker\PhpFunction
 
         $function = '    ' . $function;
 
-        $function = str_replace("\n", "\n    ", $function);
+        $function = str_replace("\n", "\n    ", $function) . "\n";
 
         return $function;
     }

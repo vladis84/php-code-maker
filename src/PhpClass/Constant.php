@@ -49,12 +49,14 @@ class Constant extends Element
     public function render(): string
     {
         $phpDocs = $this->phpDocs->render();
-        $phpDocs = str_replace("\n", "\n    ", $phpDocs);
+        if ($phpDocs) {
+            $phpDocs = str_replace("\n", "\n    ", $phpDocs);
+            $phpDocs .= "\n";
+        }
         $value   = is_string($this->value) ? "'{$this->value}'" : $this->value;
 
         return <<<PHP
-    {$phpDocs}
-    constant {$this->name} = {$value};\n
+    {$phpDocs}const {$this->name} = {$value};\n
 PHP;
     }
 }

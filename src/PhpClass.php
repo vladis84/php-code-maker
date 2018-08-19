@@ -196,9 +196,7 @@ class PhpClass extends Element
 {$this->namespace}
 {$uses}{$phpDocs}
 class {$this->name}{$extends}{$implements}
-{{$constants}{$properties}{$methods}
-}
-
+{{$constants}{$properties}{$methods}}
 
 PHP;
 
