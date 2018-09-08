@@ -89,11 +89,16 @@ class PhpClass extends Element
 
     public function setNamespace($namespace)
     {
-        $papNamespace = new PhpNamespace();
-        $papNamespace->setName($namespace);
-        $this->namespace = $papNamespace;
+        $phpNamespace = new PhpNamespace();
+        $phpNamespace->setName($namespace);
+        $this->namespace = $phpNamespace;
 
         return $this;
+    }
+
+    public function getNameSpace()
+    {
+        return $this->namespace;
     }
 
     public function addUse($use)
